@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "baseUrl": "lib",
+        "target": "ES6",
+        "outDir": "dist",
+        "declaration": true,
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictPropertyInitialization": false,
+        "lib": [
+            "es5", "es6", "dom"
+        ]
+    },
+    "include": [
+        "lib/**/*",
+        "tests"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

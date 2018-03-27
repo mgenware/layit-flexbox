@@ -7,8 +7,8 @@ const xml = require('xml');
 export default class FlexBuilder extends Builder {
   private opt: Option;
 
-  constructor(opt: Option) {
-    super(new FlexHandler(opt));
+  constructor(opt?: Option) {
+    super(new FlexHandler(opt || new Option()));
   }
 
   build(element: Element): object {

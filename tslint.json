@@ -17,7 +17,8 @@
         "object-literal-sort-keys": false,
         "max-classes-per-file": false,
         "no-any": false,
-        "strict-type-predicates": true
+        "strict-type-predicates": true,
+        "max-line-length": false
     },
     "rulesDirectory": []
 }

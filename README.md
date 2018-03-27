@@ -1,6 +1,2 @@
-# boilerplate templates
-## node-javascript
-JavaScript Node.js module boilerplate.
-
-## node-typescript
-TypeScript Node.js modules boilerplate.
+# layit-flexbox
+Transform [layit](https://github.com/mgenware/layit) to flexbox

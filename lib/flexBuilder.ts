@@ -14,6 +14,7 @@ export default class FlexBuilder extends Builder {
 
   build(element: Element): any {
     const generatedElement = super.build(element) as Element;
+
     if (this.opt.logging) {
       log('build', generatedElement.outerHTML);
     }

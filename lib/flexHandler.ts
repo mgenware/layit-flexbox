@@ -11,7 +11,7 @@ export default class FlexHandler extends Handler {
     this.opt = opt;
   }
 
-  handleBuiltin(ctx: Context): object {
+  handleBuiltin(ctx: Context): any {
     const { builtin } = Defs;
     switch (ctx.tagName) {
       case builtin.h: {
@@ -21,15 +21,14 @@ export default class FlexHandler extends Handler {
       case builtin.v: {
         return this.handleList(ctx, true, ctx.children);
       }
-    }
 
-    // This will throw an exception like "xxx tag is not supported".
-    this.throwNotSupportedTagName(ctx.tagName);
-    // This is a actually unreachable code used for shutting down the warning: Function lacks ending return statement and return type does not include 'undefined'
-    return new Object();
+      default: {
+        return this.handleHTML(ctx);
+      }
+    }
   }
 
-  handleExternal(ctx: Context): object {
+  handleExternal(ctx: Context): any {
     // tslint:disable-next-line no-any
     const ret = {} as any;
     ret[ctx.tagName] = ctx.children.map((c) => ctx.handleDefault(c));
@@ -40,23 +39,26 @@ export default class FlexHandler extends Handler {
     return ret;
   }
 
-  private handleList(ctx: Context, vertical: boolean, children: Element[]): object {
-    const objChildren: any[] = [];
-    const specialAttrChild: any = {};
-    const objAttr: any = specialAttrChild._attr = {};
-    const obj: any = {};
-    obj[defs.div] = objChildren;
-    objChildren.push(specialAttrChild);
+  private handleList(ctx: Context, vertical: boolean, children: Element[]): Node {
+    const element = document.createElement('div');
 
     // Set the flex and flex-direction CSS styles
-    objAttr.style = defs.cssDisplayFlex + (vertical ? defs.cssDirectionColumn : '');
+    const styleAttr = defs.cssDisplayFlex + (vertical ? defs.cssDirectionColumn : '');
+    element.setAttribute('style', styleAttr);
 
     // Set child elements
-    objChildren.push.apply(objChildren, children.map((c) => ctx.handleDefault(c)));
+    for (const child of children) {
+      const childElement = ctx.handleDefault(child) as Node;
+      element.appendChild(childElement);
+    }
 
     if (this.opt.logging) {
-      log('handleList', obj);
+      log('handleList', element.outerHTML);
     }
-    return obj;
+    return element;
+  }
+
+  private handleHTML(ctx: Context): Node {
+    return ctx.element;
   }
 }

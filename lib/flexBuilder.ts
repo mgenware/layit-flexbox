@@ -2,7 +2,6 @@ import { Builder } from '/Users/yuanyuanliu/layit';
 import FlexHandler from './flexHandler';
 import Option from './option';
 import log from './log';
-const xml = require('xml');
 
 export default class FlexBuilder extends Builder {
   private opt: Option;
@@ -13,12 +12,11 @@ export default class FlexBuilder extends Builder {
     this.opt = opt;
   }
 
-  build(element: Element): object {
-    const ret = super.build(element);
+  build(element: Element): any {
+    const generatedElement = super.build(element) as Element;
     if (this.opt.logging) {
-      log('build', ret);
+      log('build', generatedElement.outerHTML);
     }
-    const xmlString = xml(ret);
-    return xmlString;
+    return generatedElement.outerHTML;
   }
 }

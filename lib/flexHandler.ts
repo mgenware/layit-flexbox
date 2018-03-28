@@ -52,7 +52,7 @@ export default class FlexHandler extends Handler {
     objAttr.style = defs.cssDisplayFlex + (vertical ? defs.cssDirectionColumn : '');
 
     // Set child elements
-    objChildren.push(children.map((c) => ctx.handleDefault(c)));
+    objChildren.push.apply(objChildren, children.map((c) => ctx.handleDefault(c)));
 
     if (this.opt.logging) {
       log('handleList', obj);

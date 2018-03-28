@@ -8,7 +8,9 @@ export default class FlexBuilder extends Builder {
   private opt: Option;
 
   constructor(opt?: Option) {
-    super(new FlexHandler(opt || new Option()));
+    opt = opt || new Option();
+    super(new FlexHandler(opt));
+    this.opt = opt;
   }
 
   build(element: Element): object {

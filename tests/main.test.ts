@@ -4,7 +4,7 @@ test('test add', () => {
   const opt = new FlexBuilderOption();
   opt.logging = true;
   const builder = new FlexBuilder(opt);
-  const element = FlexBuilder.elementFromXML('<layit><h><h><div>Hello</div></h><v><h>World</h></v></h></layit>');
+  const element = FlexBuilder.elementFromXML('<layit><h><h size="20px"><div size="*">Hello</div></h><v><h size="auto">World</h></v></h></layit>');
 
   expect(builder.build(element)).toBe('<div></div>');
 });

@@ -24,19 +24,19 @@
     "prepublishOnly": "yarn run test",
     "lint": "tslint --project tsconfig.json --config tslint.json",
     "copy": "copyfiles \"tests/data/**/*.*\" \"dist\"",
-    "clean:dist": "rm -rf dist",
+    "clean:dist": "rimraf dist",
     "clean": "npm run clean:dist"
   },
   "engines": {
     "node": ">=6.0.0"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^22.2.2",
     "@types/node": "^9.6.0",
     "copyfiles": "^2.0.0",
     "jest": "^22.4.3",
+    "rimraf": "^2.6.2",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2"
   }

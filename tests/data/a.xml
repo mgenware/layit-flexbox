@@ -1,0 +1,11 @@
+<layit>
+  <v>
+    <div size="300px" style="background-color:yellow">Header</div>
+    <h size="*">
+      <div size="10px" style="background-color:red">Left bar</div>
+      <div size="*2" style="background-color:red">Content</div>
+      <div size="*" style="background-color:red">Right bar</div>
+    </h>
+    <div size="300px" style="background-color:red">Footer</div>
+  </v>
+</layit>

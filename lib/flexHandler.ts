@@ -13,7 +13,7 @@ export default class FlexHandler extends Handler {
     this.opt = opt;
   }
 
-  handleBuiltin(ctx: Context): any {
+  handleElement(ctx: Context): any {
     const { builtin } = Defs;
     switch (ctx.tagName) {
       case builtin.h: {
@@ -30,24 +30,13 @@ export default class FlexHandler extends Handler {
     }
   }
 
-  handleExternal(ctx: Context): any {
-    // tslint:disable-next-line no-any
-    const ret = {} as any;
-    ret[ctx.tagName] = ctx.children.map((c) => ctx.handleDefault(c));
-
-    if (this.opt.logging) {
-      log('handleExternal', ret);
-    }
-    return ret;
-  }
-
   private handleList(ctx: Context, vertical: boolean, children: Element[]): HTMLElement {
     const element = document.createElement('div');
 
     // Set the flex and flex-direction CSS styles
-    Object.assign(element.style, { display: 'flex' });
+    element.style.display = 'flex';
     if (vertical) {
-      Object.assign(element.style, { flexDirection: 'column'});
+      element.style.flexDirection = 'column';
     }
 
     // Set child elements
@@ -67,17 +56,17 @@ export default class FlexHandler extends Handler {
       // Apply size value
       switch (size.type) {
         case SizeType.auto: {
-          Object.assign(generatedChild.style, { flex: '0 1 auto' });
+          generatedChild.style.flex = '0 1 auto';
           break;
         }
 
         case SizeType.absolute: {
-          Object.assign(generatedChild.style, { flex: `0 1 ${size.absoluteValue}` });
+          generatedChild.style.flex = `0 1 ${size.absoluteValue}`;
           break;
         }
 
         case SizeType.proportional: {
-          Object.assign(generatedChild.style, { flex: `${size.proportion} 1 0` });
+          generatedChild.style.flex = `${size.proportion} 1 0`;
           break;
         }
       }

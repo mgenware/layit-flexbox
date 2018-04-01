@@ -1,4 +1,4 @@
-import { Builder } from '/Users/yuanyuanliu/layit';
+import { Builder, outerXML } from '/Users/yuanyuanliu/layit';
 import FlexHandler from './flexHandler';
 import Option from './option';
 import log from './log';
@@ -13,16 +13,16 @@ export default class FlexBuilder extends Builder {
     this.opt = opt;
   }
 
-  build(element: Element): any {
-    const generatedElement = super.build(element) as Element;
+  build(document: Document): any {
+    const generatedElement = super.build(document) as Element;
     // Stretch this to parent's size
     const sb = new StyleBuilder(generatedElement);
     sb.style.flex = '1 1 0';
     sb.flush();
 
     if (this.opt.logging) {
-      log('build', generatedElement.outerHTML);
+      log('build', outerXML(generatedElement));
     }
-    return generatedElement.outerHTML;
+    return outerXML(generatedElement);
   }
 }

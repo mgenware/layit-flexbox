@@ -17,7 +17,7 @@ export default class StyleParser {
     let res = '';
     for (const key in this.map) {
       if (this.map.hasOwnProperty(key)) {
-        res += key + ': ' + this.map[key] + ';';
+        res += key + ':' + this.map[key] + '; ';
       }
     }
     return res;

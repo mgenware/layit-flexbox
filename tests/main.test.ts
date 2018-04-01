@@ -6,7 +6,7 @@ test('test add', () => {
   opt.logging = true;
   const src = fs.readFileSync(__dirname + '/data/a.xml', 'utf8');
   const builder = new FlexBuilder(opt);
-  const element = FlexBuilder.elementFromXML(src);
+  const element = FlexBuilder.documentFromXML(src);
   const expected = builder.build(element);
   expect(expected).toBe('<div></div>');
 });

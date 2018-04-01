@@ -32,7 +32,7 @@ export default class FlexHandler extends Handler {
   }
 
   private handleList(ctx: Context, vertical: boolean, children: Element[]): HTMLElement {
-    const element = document.createElement('div');
+    const element = ctx.document.createElement('div');
 
     // Set the flex and flex-direction CSS styles
     const elementSB = new StyleBuilder(element);

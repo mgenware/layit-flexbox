@@ -30,7 +30,9 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "style-parser": "^1.1.1"
+  },
   "devDependencies": {
     "@types/jest": "^22.2.2",
     "@types/node": "^9.6.0",

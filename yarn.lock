@@ -2356,6 +2356,10 @@ parse5@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"
 
+parsimmon@^0.7.0:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/parsimmon/-/parsimmon-0.7.2.tgz#805fc6d1ed52d0c9b65cbf6b4da58a161e68e7e1"
+
 pascalcase@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
@@ -2959,6 +2963,12 @@ strip-eof@^1.0.0:
 strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
+
+style-parser@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/style-parser/-/style-parser-1.1.1.tgz#9deb628d75462ff07b15662a72c0d5a8e4d5ffc5"
+  dependencies:
+    parsimmon "^0.7.0"
 
 supports-color@^2.0.0:
   version "2.0.0"

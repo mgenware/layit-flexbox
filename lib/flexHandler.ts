@@ -4,6 +4,7 @@ import Option from './option';
 import log from './log';
 import { SizeType, Size } from './unit/size';
 import SizeParser from './unit/sizeParser';
+import StyleBuilder from './unit/styleBuilder';
 
 export default class FlexHandler extends Handler {
   private opt: Option;
@@ -34,15 +35,21 @@ export default class FlexHandler extends Handler {
     const element = document.createElement('div');
 
     // Set the flex and flex-direction CSS styles
-    element.style.display = 'flex';
+    const elementSB = new StyleBuilder(element);
+    elementSB.style.display = 'flex';
+    elementSB.style.flex = '1 1 0';
     if (vertical) {
-      element.style.flexDirection = 'column';
+      elementSB.style.flexDirection = 'column';
     }
+    elementSB.flush();
 
     // Set child elements
     for (const child of children) {
-      // Get size attribute
+      // Get the size attribute
       const sizeAttr = child.getAttribute(defs.size) || '';
+      // Remove the size attribute from DOM
+      child.removeAttribute(defs.size);
+
       let size: Size;
       try {
         size = SizeParser.parse(sizeAttr);
@@ -52,25 +59,28 @@ export default class FlexHandler extends Handler {
 
       // Generate child element
       const generatedChild = ctx.handleDefault(child) as HTMLElement;
+      const styleBS = new StyleBuilder(child);
 
       // Apply size value
       switch (size.type) {
         case SizeType.auto: {
-          generatedChild.style.flex = '0 1 auto';
+          styleBS.style.flex = '0 1 auto';
           break;
         }
 
         case SizeType.absolute: {
-          generatedChild.style.flex = `0 1 ${size.absoluteValue}`;
+          styleBS.style.flex = `0 1 ${size.absoluteValue}`;
           break;
         }
 
         case SizeType.proportional: {
-          generatedChild.style.flex = `${size.proportion} 1 0`;
+          styleBS.style.flex = `${size.proportion} 1 0`;
           break;
         }
       }
 
+      // Set style attribute
+      styleBS.flush();
       // Append child element to parent
       element.appendChild(generatedChild);
     }

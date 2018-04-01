@@ -2,6 +2,7 @@ import { Builder } from '/Users/yuanyuanliu/layit';
 import FlexHandler from './flexHandler';
 import Option from './option';
 import log from './log';
+import StyleBuilder from './unit/styleBuilder';
 
 export default class FlexBuilder extends Builder {
   private opt: Option;
@@ -13,9 +14,11 @@ export default class FlexBuilder extends Builder {
   }
 
   build(element: Element): any {
-    const generatedElement = super.build(element) as HTMLElement;
+    const generatedElement = super.build(element) as Element;
     // Stretch this to parent's size
-    generatedElement.style.flex = '1 1 0';
+    const sb = new StyleBuilder(generatedElement);
+    sb.style.flex = '1 1 0';
+    sb.flush();
 
     if (this.opt.logging) {
       log('build', generatedElement.outerHTML);

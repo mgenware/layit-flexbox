@@ -13,7 +13,9 @@ export default class FlexBuilder extends Builder {
   }
 
   build(element: Element): any {
-    const generatedElement = super.build(element) as Element;
+    const generatedElement = super.build(element) as HTMLElement;
+    // Stretch this to parent's size
+    generatedElement.style.flex = '1 1 0';
 
     if (this.opt.logging) {
       log('build', generatedElement.outerHTML);

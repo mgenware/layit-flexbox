@@ -1,11 +1,11 @@
 <layit>
   <v>
-    <div size="300px" style="background-color:yellow">Header</div>
+    <div size="300px" style="background-color:yellow">Header: 300px</div>
     <h size="*">
-      <div size="10px" style="background-color:red">Left bar</div>
-      <div size="*2" style="background-color:red">Content</div>
-      <div size="*" style="background-color:red">Right bar</div>
+      <div size="100px" style="background-color:red">Left bar: 100px</div>
+      <div size="*2" style="background-color:green">Content section: *2</div>
+      <div size="*" style="background-color:blue">Right bar: *</div>
     </h>
-    <div size="300px" style="background-color:red">Footer</div>
+    <div size="100px" style="background-color:gray">Footer: 100px</div>
   </v>
 </layit>

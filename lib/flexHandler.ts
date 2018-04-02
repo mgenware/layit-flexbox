@@ -38,9 +38,7 @@ export default class FlexHandler extends Handler {
     const elementSB = new StyleBuilder(element);
     elementSB.style.display = 'flex';
     elementSB.style.flex = '1 1 0';
-    if (vertical) {
-      elementSB.style.flexDirection = 'column';
-    }
+    elementSB.style.flexDirection = vertical ? 'column' : 'row';
     elementSB.flush();
 
     // Set child elements

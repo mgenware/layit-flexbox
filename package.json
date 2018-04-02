@@ -1,18 +1,19 @@
 {
   "name": "layit-flexbox",
   "version": "0.0.1",
-  "description": "A smart task runner",
+  "description": "Transform layit to HTML(flexbox)",
   "main": "dist/lib/main.js",
   "types": "dist/lib/main.d.ts",
   "author": "Mgen (https://www.mgenware.com)",
-  "homepage": "https://github.com/mgenware/makhulu",
-  "bugs": "https://github.com/mgenware/makhulu/issues",
+  "homepage": "https://github.com/mgenware/layit-flexbox",
+  "bugs": "https://github.com/mgenware/layit-flexbox/issues",
   "keywords": [
-    "task runner"
+    "layout",
+    "layit"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mgenware/makhulu.git"
+    "url": "https://github.com/mgenware/layit-flexbox.git"
   },
   "license": "MIT",
   "scripts": {
@@ -31,15 +32,22 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
+    "layit": "^0.0.2",
     "style-parser": "^1.1.1"
   },
   "devDependencies": {
     "@types/jest": "^22.2.2",
     "@types/node": "^9.6.0",
+    "@types/xmldom": "^0.1.29",
     "copyfiles": "^2.0.0",
     "jest": "^22.4.3",
     "rimraf": "^2.6.2",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2"
-  }
+  },
+  "files": [
+    "dist/lib",
+    ".gitignore",
+    "README.md"
+  ]
 }

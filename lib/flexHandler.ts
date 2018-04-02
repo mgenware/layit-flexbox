@@ -1,4 +1,4 @@
-import { Context, Handler, Defs } from '/Users/yuanyuanliu/layit';
+import { Context, Handler, Defs } from 'layit';
 import defs from './defs';
 import Option from './option';
 import log from './log';

@@ -1,4 +1,4 @@
-import { Builder, outerXML } from '/Users/yuanyuanliu/layit';
+import { Builder, outerXML } from 'layit';
 import FlexHandler from './flexHandler';
 import Option from './option';
 import log from './log';

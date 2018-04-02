@@ -62,16 +62,19 @@ export default class FlexHandler extends Handler {
       // Apply size value
       switch (size.type) {
         case SizeType.auto: {
-          styleBS.style.flex = '1 1 auto';
+          // auto size: grow=0, shrink=1
+          styleBS.style.flex = '0 1 auto';
           break;
         }
 
         case SizeType.absolute: {
-          styleBS.style.flex = `1 1 ${size.absoluteValue}`;
+          // absolute size: grow=0, shrink=1
+          styleBS.style.flex = `0 1 ${size.absoluteValue}`;
           break;
         }
 
         case SizeType.proportional: {
+          // wild size: grow=1, shrink=1
           styleBS.style.flex = `${size.proportion} 1 0`;
           break;
         }

@@ -33,7 +33,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "layit": "^0.0.2",
+    "layit": "^0.1.0",
     "style-parser": "^1.1.1"
   },
   "devDependencies": {

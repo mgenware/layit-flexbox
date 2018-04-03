@@ -14,21 +14,24 @@ export default class FlexHandler extends Handler {
     this.opt = opt;
   }
 
-  handleElement(ctx: Context): any {
-    const { builtin } = Defs;
+  handleBuiltin(ctx: Context): any {
     switch (ctx.tagName) {
-      case builtin.h: {
+      case Defs.h: {
         return this.handleList(ctx, false, ctx.children);
       }
 
-      case builtin.v: {
+      case Defs.v: {
         return this.handleList(ctx, true, ctx.children);
       }
 
       default: {
-        return this.handleHTML(ctx);
+        this.throwNotSupportedTagName(ctx.tagName);
       }
     }
+  }
+
+  handleExternal(ctx: Context): any {
+    return this.handleHTML(ctx);
   }
 
   private handleList(ctx: Context, vertical: boolean, children: Element[]): HTMLElement {

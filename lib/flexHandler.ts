@@ -24,6 +24,10 @@ export default class FlexHandler extends Handler {
         return this.handleList(ctx, true, ctx.children);
       }
 
+      case Defs.box: {
+        return this.handleBox(ctx);
+      }
+
       default: {
         this.throwNotSupportedTagName(ctx.tagName);
       }
@@ -35,21 +39,17 @@ export default class FlexHandler extends Handler {
   }
 
   private handleList(ctx: Context, vertical: boolean, children: Element[]): Element {
-    const element = ctx.document.createElement('div');
+    const div = ctx.document.createElement('div');
 
     // Set the flex and flex-direction CSS styles
-    const elementSB = new StyleBuilder(element);
-    elementSB.style.display = 'flex';
-    elementSB.style.flex = '1 1 0';
-    elementSB.style.flexDirection = vertical ? 'column' : 'row';
-    elementSB.flush();
+    const divSB = this.setFlexboxStyles(ctx.element, div);
+    divSB.style.flexDirection = vertical ? 'column' : 'row';
+    divSB.flush();
 
     // Set child elements
     for (const child of children) {
       // Get the size attribute
-      const sizeAttr = child.getAttribute(defs.size) || '';
-      // Remove the size attribute from DOM
-      child.removeAttribute(defs.size);
+      const sizeAttr = this.getAndRemoveAttr(child, defs.size);
 
       let size: Size;
       try {
@@ -59,43 +59,67 @@ export default class FlexHandler extends Handler {
       }
 
       // Generate child element
-      const generatedChild = ctx.handleDefault(child) as Element;
-      const styleBS = new StyleBuilder(child);
+      const childDiv = ctx.handleDefault(child) as Element;
+      const childBS = new StyleBuilder(child, childDiv);
 
       // Apply size value
       switch (size.type) {
         case SizeType.auto: {
           // auto size: grow=0, shrink=1
-          styleBS.style.flex = '0 1 auto';
+          childBS.style.flex = '0 1 auto';
           break;
         }
 
         case SizeType.absolute: {
           // absolute size: grow=0, shrink=1
-          styleBS.style.flex = `0 1 ${size.absoluteValue}`;
+          childBS.style.flex = `0 1 ${size.absoluteValue}`;
           break;
         }
 
         case SizeType.proportional: {
           // wild size: grow=1, shrink=1
-          styleBS.style.flex = `${size.proportion} 1 0`;
+          childBS.style.flex = `${size.proportion} 1 0`;
           break;
         }
       }
 
       // Set style attribute
-      styleBS.flush();
+      childBS.flush();
       // Append child element to parent
-      element.appendChild(generatedChild);
+      div.appendChild(childDiv);
     }
 
     if (this.opt.logging) {
-      log('handleList', outerXML(element));
+      log('handleList', outerXML(div));
     }
-    return element;
+    return div;
+  }
+
+  private handleBox(ctx: Context): Element {
+    const div = ctx.document.createElement('div');
+    const sb = this.setFlexboxStyles(ctx.element, div);
+    const marginAttr = this.getAndRemoveAttr(div, defs.margin);
+    sb.style.margin = marginAttr;
+    return div;
   }
 
   private handleHTML(ctx: Context): Element {
     return ctx.element;
+  }
+
+  private setFlexboxStyles(src: Element|null, dest: Element): StyleBuilder {
+    const sb = new StyleBuilder(src, dest);
+    sb.style.display = defs.flex;
+    sb.style.flex = defs.cssFlexFullSize;
+    sb.flush();
+    return sb;
+  }
+
+  private getAndRemoveAttr(element: Element, name: string): string {
+    // Get the size attribute
+    const value = element.getAttribute(name) || '';
+    // Remove the size attribute from DOM
+    element.removeAttribute(name);
+    return value;
   }
 }

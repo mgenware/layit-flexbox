@@ -4,9 +4,11 @@ export default class StyleBuilder {
   private parser: StyleParser;
   private element: Element;
 
-  constructor(element: Element) {
-    this.element = element;
-    this.parser = new StyleParser(element.getAttribute('style'));
+  constructor(src: Element|null, dest: Element) {
+    this.element = dest;
+
+    const styleAttr = src ? src.getAttribute('style') : '';
+    this.parser = new StyleParser(styleAttr);
   }
 
   flush() {

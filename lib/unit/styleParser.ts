@@ -1,11 +1,13 @@
 const parse = require('style-parser');
 
 export default class StyleParser {
-  private map: { [key: string]: any } = {};
+  private map: { [key: string]: any };
 
   constructor(style: string|null) {
     if (style) {
       this.map = parse(style) || {};
+    } else {
+      this.map = {};
     }
   }
 
@@ -31,5 +33,8 @@ export default class StyleParser {
   }
   set flexDirection(value: string) {
     this.map['flex-direction'] = value;
+  }
+  set margin(value: string) {
+    this.map.margin = value;
   }
 }

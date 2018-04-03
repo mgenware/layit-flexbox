@@ -1,10 +1,10 @@
 import { FlexBuilder, FlexBuilderOption} from '../lib/main';
 import * as fs from 'fs';
 
-test('test add', () => {
+test('v and h', () => {
   const opt = new FlexBuilderOption();
   opt.logging = true;
-  const src = fs.readFileSync(__dirname + '/data/a.xml', 'utf8');
+  const src = fs.readFileSync(__dirname + '/data/vh.xml', 'utf8');
   const builder = new FlexBuilder(opt);
   const element = FlexBuilder.documentFromXML(src);
   const expected = builder.build(element);

@@ -1,4 +1,4 @@
-import { Context, Handler, Defs } from 'layit';
+import { Context, Handler, Defs, outerXML } from 'layit';
 import defs from './defs';
 import Option from './option';
 import log from './log';
@@ -52,7 +52,7 @@ export default class FlexHandler extends Handler {
       try {
         size = SizeParser.parse(sizeAttr);
       } catch (err) {
-        throw new Error(`Error parsing size attribute "${sizeAttr}", message: ${err.message}, element: ${child.outerHTML}`);
+        throw new Error(`Error parsing size attribute "${sizeAttr}", message: ${err.message}, element: ${outerXML(child)}`);
       }
 
       // Generate child element
@@ -87,7 +87,7 @@ export default class FlexHandler extends Handler {
     }
 
     if (this.opt.logging) {
-      log('handleList', element.outerHTML);
+      log('handleList', outerXML(element));
     }
     return element;
   }

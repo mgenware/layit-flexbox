@@ -1938,11 +1938,11 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-layit@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/layit/-/layit-0.1.0.tgz#eb95d033639b9394124859d9563e9d0a67c5ce31"
+layit@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/layit/-/layit-0.1.1.tgz#c9aa1a980fb32adfbd899bc2b4049e693ce92181"
   dependencies:
-    xmldom "^0.1.27"
+    xmldom-alpha-ex "^1.0.0"
 
 lazy-cache@^1.0.3:
   version "1.0.4"
@@ -3307,9 +3307,9 @@ xml-name-validator@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
 
-xmldom@^0.1.27:
-  version "0.1.27"
-  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.1.27.tgz#d501f97b3bdb403af8ef9ecc20573187aadac0e9"
+xmldom-alpha-ex@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/xmldom-alpha-ex/-/xmldom-alpha-ex-1.0.0.tgz#bfbdb224262c60db841835df0ee1fc1bc41c9895"
 
 xtend@~4.0.1:
   version "4.0.1"

@@ -17,9 +17,10 @@ export default class StyleParser {
 
   toString(): string {
     let res = '';
-    for (const key in this.map) {
-      if (this.map.hasOwnProperty(key)) {
-        res += key + ':' + this.map[key] + ';';
+    const map = this.map;
+    for (const key in map) {
+      if (this.map.hasOwnProperty(key) && map[key]) {
+        res += key + ':' + map[key] + ';';
       }
     }
     return res;
@@ -34,7 +35,7 @@ export default class StyleParser {
   set flexDirection(value: string) {
     this.map['flex-direction'] = value;
   }
-  set margin(value: string) {
-    this.map.margin = value;
+  set padding(value: string) {
+    this.map.padding = value;
   }
 }

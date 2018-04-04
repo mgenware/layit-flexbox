@@ -49,7 +49,7 @@ export default class FlexHandler extends Handler {
     // Set child elements
     for (const child of children) {
       // Get the size attribute
-      const sizeAttr = this.getAndRemoveAttr(child, defs.size);
+      const sizeAttr = this.getElementAttr(child, defs.size);
 
       let size: Size;
       try {
@@ -98,8 +98,9 @@ export default class FlexHandler extends Handler {
   private handleBox(ctx: Context): Element {
     const div = ctx.document.createElement('div');
     const sb = this.setFlexboxStyles(ctx.element, div);
-    const marginAttr = this.getAndRemoveAttr(div, defs.margin);
-    sb.style.margin = marginAttr;
+    const marginAttr = this.getElementAttr(ctx.element, defs.margin);
+    sb.style.padding = marginAttr;
+    sb.flush();
     return div;
   }
 
@@ -115,11 +116,7 @@ export default class FlexHandler extends Handler {
     return sb;
   }
 
-  private getAndRemoveAttr(element: Element, name: string): string {
-    // Get the size attribute
-    const value = element.getAttribute(name) || '';
-    // Remove the size attribute from DOM
-    element.removeAttribute(name);
-    return value;
+  private getElementAttr(element: Element, name: string): string {
+    return element.getAttribute(name) || '';
   }
 }

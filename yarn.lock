@@ -1938,9 +1938,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-layit@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/layit/-/layit-0.1.1.tgz#c9aa1a980fb32adfbd899bc2b4049e693ce92181"
+layit@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/layit/-/layit-0.1.2.tgz#b1dfbed2351469076a9481911971fc9eb5cca775"
   dependencies:
     xmldom-alpha-ex "^1.0.0"
 

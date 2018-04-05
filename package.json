@@ -18,8 +18,9 @@
   "license": "MIT",
   "scripts": {
     "test": "yarn run clean && yarn run compile && yarn run lint && yarn run dev_test",
-    "dev_test": "yarn run copy && jest",
+    "dev_test": "yarn run copy && yarn run t",
     "dt": "yarn run dev_test",
+    "t": "jest",
     "build": "yarn test",
     "compile": "tsc",
     "dev": "yarn run clean && tsc -w",

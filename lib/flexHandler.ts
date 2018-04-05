@@ -104,7 +104,7 @@ export default class FlexHandler extends Handler {
 
     // Handle child
     if (ctx.children.length > 1) {
-      throw new Error(`<box> can only contain 1 child, got ${ctx.element.children.length}`);
+      throw new Error(`<box> can only contain 1 child, got ${ctx.children.length}`);
     }
 
     if (ctx.children.length) {
@@ -112,6 +112,8 @@ export default class FlexHandler extends Handler {
       const childDiv = ctx.handleDefault(child) as Element;
       // Append child element to parent
       div.appendChild(childDiv);
+    } else {
+      this.copyTextChildren(ctx.element, div);
     }
 
     return div;
@@ -131,5 +133,17 @@ export default class FlexHandler extends Handler {
 
   private getElementAttr(element: Element, name: string): string {
     return element.getAttribute(name) || '';
+  }
+
+  private copyTextChildren(src: Element, dest: Element) {
+    if (!src.childNodes.length) {
+      return;
+    }
+    for (let i = 0; i < src.childNodes.length; i++) {
+      const node = src.childNodes[i];
+      if (node.nodeType === Node.TEXT_NODE) {
+        dest.appendChild(node);
+      }
+    }
   }
 }

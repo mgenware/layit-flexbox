@@ -1,0 +1,6 @@
+<layit>
+  <Box> a b c
+    <Box> x y z   </Box>
+    d e f
+  </Box>
+</layit>

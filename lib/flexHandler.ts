@@ -60,7 +60,7 @@ export default class FlexHandler extends Handler {
 
       // Generate child element
       const childDiv = ctx.handleDefault(child) as Element;
-      const childBS = new StyleBuilder(child, childDiv);
+      const childBS = new StyleBuilder(null, childDiv);
 
       // Apply size value
       switch (size.type) {
@@ -87,6 +87,11 @@ export default class FlexHandler extends Handler {
       childBS.flush();
       // Append child element to parent
       div.appendChild(childDiv);
+    }
+
+    if (!children.length) {
+      // No child elements, try copying text nodes to dest element
+      this.copyTextChildren(ctx.element, div);
     }
 
     if (this.opt.logging) {

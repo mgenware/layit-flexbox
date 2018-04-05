@@ -2,12 +2,13 @@ import { Builder, outerXML } from 'layit';
 import FlexHandler from './flexHandler';
 import Option from './option';
 import log from './log';
+import IOption from './option';
 
 export default class FlexBuilder extends Builder {
   private opt: Option;
 
-  constructor(opt?: Option) {
-    opt = opt || new Option();
+  constructor(opt?: IOption) {
+    opt = opt || {};
     super(new FlexHandler(opt));
     this.opt = opt;
   }

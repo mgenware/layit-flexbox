@@ -1,3 +1,3 @@
-export default class Option {
-  logging: boolean = false;
+export default interface IOption {
+  logging?: boolean;
 }

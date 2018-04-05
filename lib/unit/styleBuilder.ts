@@ -7,8 +7,9 @@ export default class StyleBuilder {
   constructor(src: Element|null, dest: Element) {
     this.element = dest;
 
-    const styleAttr = src ? src.getAttribute('style') : '';
+    const styleAttr = src ? this.getStyleAttribute(src) : '';
     this.parser = new StyleParser(styleAttr);
+    this.parser.merge(this.getStyleAttribute(dest));
   }
 
   flush() {
@@ -18,5 +19,9 @@ export default class StyleBuilder {
 
   get style(): StyleParser {
     return this.parser;
+  }
+
+  private getStyleAttribute(element: Element): string {
+    return element.getAttribute('style') || '';
   }
 }

@@ -11,6 +11,11 @@ export default class StyleParser {
     }
   }
 
+  merge(style: string) {
+    const styleMap = parse(style) || {};
+    this.map = Object.assign(this.map, styleMap);
+  }
+
   setStyle(key: string, value: string) {
     this.map[key] = value;
   }

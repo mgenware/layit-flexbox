@@ -38,4 +38,7 @@ export default class StyleParser {
   set padding(value: string) {
     this.map.padding = value;
   }
+  set margin(value: string) {
+    this.map.margin = value;
+  }
 }

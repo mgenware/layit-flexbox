@@ -1,0 +1,7 @@
+<layit>
+  <Box style="background-color:yellow" margin="0">
+    <Box style="background-color:green" margin="20px">
+      <Box style="background-color:black" margin="10px 100px"></Box>
+    </Box>
+  </Box>
+</layit>

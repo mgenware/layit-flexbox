@@ -99,8 +99,21 @@ export default class FlexHandler extends Handler {
     const div = ctx.document.createElement('div');
     const sb = this.setFlexboxStyles(ctx.element, div);
     const marginAttr = this.getElementAttr(ctx.element, defs.margin);
-    sb.style.padding = marginAttr;
+    sb.style.margin = marginAttr;
     sb.flush();
+
+    // Handle child
+    if (ctx.children.length > 1) {
+      throw new Error(`<box> can only contain 1 child, got ${ctx.element.children.length}`);
+    }
+
+    if (ctx.children.length) {
+      const child = ctx.children[0];
+      const childDiv = ctx.handleDefault(child) as Element;
+      // Append child element to parent
+      div.appendChild(childDiv);
+    }
+
     return div;
   }
 

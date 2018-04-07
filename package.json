@@ -1,6 +1,6 @@
 {
   "name": "layit-flexbox",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Transform layit to HTML(flexbox)",
   "main": "dist/lib/main.js",
   "types": "dist/lib/main.d.ts",
@@ -34,7 +34,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "layit": "^0.2.2",
+    "layit": "^0.2.4",
     "m-fs": "^1.0.3",
     "style-parser": "^1.1.1"
   },

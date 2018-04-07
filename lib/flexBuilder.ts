@@ -3,6 +3,7 @@ import FlexHandler from './flexHandler';
 import Option from './option';
 import log from './log';
 import IOption from './option';
+import * as prettier from 'prettier';
 
 export default class FlexBuilder extends Builder {
   private opt: Option;
@@ -22,6 +23,10 @@ export default class FlexBuilder extends Builder {
     if (this.opt.logging) {
       log('build', Util.outerXML(generatedElement));
     }
-    return Util.outerXML(generatedElement);
+    const html = Util.outerXML(generatedElement) || '';
+    if (this.opt.minify) {
+      return html;
+    }
+    return prettier.format(html);
   }
 }

@@ -35,11 +35,11 @@ export default class FlexHandler extends Handler {
   }
 
   private handleList(ctx: Context, vertical: boolean): Element {
-    const div = ctx.document.createElement('div');
+    const dest = ctx.document.createElement('div');
     const { childElements } = ctx;
 
     // Set the flex and flex-direction CSS styles
-    const divSB = this.setFlexboxStyles(ctx.element, div);
+    const divSB = this.setFlexboxStyles(ctx.element, dest);
     divSB.style.flexDirection = vertical ? 'column' : 'row';
     divSB.flush();
 
@@ -83,23 +83,23 @@ export default class FlexHandler extends Handler {
       // Set style attribute
       childBS.flush();
       // Append child element to parent
-      div.appendChild(childDiv);
+      dest.appendChild(childDiv);
     }
 
     if (!childElements.length) {
       // No child elements, try copying text nodes to dest element
-      this.copyTextChildren(ctx.element, div);
+      this.copyTextChildren(ctx.element, dest);
     }
 
     if (this.opt.logging) {
-      log('handleList', Util.outerXML(div));
+      log('handleList', Util.outerXML(dest));
     }
-    return div;
+    return dest;
   }
 
   private handleBox(ctx: Context): Element {
-    const div = ctx.document.createElement('div');
-    const sb = this.setFlexboxStyles(ctx.element, div);
+    const dest = ctx.document.createElement('div');
+    const sb = this.setFlexboxStyles(ctx.element, dest);
     const marginAttr = this.getElementAttr(ctx.element, defs.margin);
     sb.style.margin = marginAttr;
     sb.flush();
@@ -114,15 +114,15 @@ export default class FlexHandler extends Handler {
       const child = childElements[0];
       const childDiv = ctx.handleDefault(child) as Element;
       // Append child element to parent
-      div.appendChild(childDiv);
+      dest.appendChild(childDiv);
     } else {
-      this.copyTextChildren(ctx.element, div);
+      this.copyTextChildren(ctx.element, dest);
     }
 
     if (this.opt.logging) {
-      log('handleBox', Util.outerXML(div));
+      log('handleBox', Util.outerXML(dest));
     }
-    return div;
+    return dest;
   }
 
   private handleHTML(ctx: Context): Element {

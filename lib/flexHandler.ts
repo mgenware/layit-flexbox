@@ -14,14 +14,14 @@ export default class FlexHandler extends Handler {
     this.opt = opt;
   }
 
-  handleElement(ctx: Context): any {
+  handleElement(ctx: Context): Element {
     switch (ctx.tagName) {
       case Defs.h: {
-        return this.handleList(ctx, false, ctx.children);
+        return this.handleList(ctx, false);
       }
 
       case Defs.v: {
-        return this.handleList(ctx, true, ctx.children);
+        return this.handleList(ctx, true);
       }
 
       case Defs.box: {
@@ -29,13 +29,14 @@ export default class FlexHandler extends Handler {
       }
 
       default: {
-        this.handleHTML(ctx);
+        return this.handleHTML(ctx);
       }
     }
   }
 
-  private handleList(ctx: Context, vertical: boolean, children: Element[]): Element {
+  private handleList(ctx: Context, vertical: boolean): Element {
     const div = ctx.document.createElement('div');
+    const { childElements } = ctx;
 
     // Set the flex and flex-direction CSS styles
     const divSB = this.setFlexboxStyles(ctx.element, div);
@@ -43,7 +44,7 @@ export default class FlexHandler extends Handler {
     divSB.flush();
 
     // Set child elements
-    for (const child of children) {
+    for (const child of childElements) {
       // Get the size attribute
       const sizeAttr = this.getElementAttr(child, defs.size);
 
@@ -85,7 +86,7 @@ export default class FlexHandler extends Handler {
       div.appendChild(childDiv);
     }
 
-    if (!children.length) {
+    if (!childElements.length) {
       // No child elements, try copying text nodes to dest element
       this.copyTextChildren(ctx.element, div);
     }
@@ -104,12 +105,13 @@ export default class FlexHandler extends Handler {
     sb.flush();
 
     // Handle child
-    if (ctx.children.length > 1) {
-      throw new Error(`<box> can only contain 1 child, got ${ctx.children.length}`);
+    const { childElements } = ctx;
+    if (childElements.length > 1) {
+      throw new Error(`<box> can only contain 1 child, got ${childElements.length}`);
     }
 
-    if (ctx.children.length) {
-      const child = ctx.children[0];
+    if (childElements.length) {
+      const child = childElements[0];
       const childDiv = ctx.handleDefault(child) as Element;
       // Append child element to parent
       div.appendChild(childDiv);
@@ -117,6 +119,9 @@ export default class FlexHandler extends Handler {
       this.copyTextChildren(ctx.element, div);
     }
 
+    if (this.opt.logging) {
+      log('handleBox', Util.outerXML(div));
+    }
     return div;
   }
 

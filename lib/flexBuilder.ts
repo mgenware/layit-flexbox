@@ -15,6 +15,9 @@ export default class FlexBuilder extends Builder {
 
   build(document: Document): any {
     const generatedElement = super.build(document) as Element;
+    if (!generatedElement) {
+      return undefined;
+    }
 
     if (this.opt.logging) {
       log('build', Util.outerXML(generatedElement));

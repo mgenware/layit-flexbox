@@ -1,4 +1,4 @@
-import { Context, Handler, Defs, outerXML } from 'layit';
+import { Context, Handler, Defs, Util } from 'layit';
 import defs from './defs';
 import Option from './option';
 import log from './log';
@@ -14,7 +14,7 @@ export default class FlexHandler extends Handler {
     this.opt = opt;
   }
 
-  handleBuiltin(ctx: Context): any {
+  handleElement(ctx: Context): any {
     switch (ctx.tagName) {
       case Defs.h: {
         return this.handleList(ctx, false, ctx.children);
@@ -29,13 +29,9 @@ export default class FlexHandler extends Handler {
       }
 
       default: {
-        this.throwNotSupportedTagName(ctx.tagName);
+        this.handleHTML(ctx);
       }
     }
-  }
-
-  handleExternal(ctx: Context): any {
-    return this.handleHTML(ctx);
   }
 
   private handleList(ctx: Context, vertical: boolean, children: Element[]): Element {
@@ -55,7 +51,7 @@ export default class FlexHandler extends Handler {
       try {
         size = SizeParser.parse(sizeAttr);
       } catch (err) {
-        throw new Error(`Error parsing size attribute "${sizeAttr}", message: ${err.message}, element: ${outerXML(child)}`);
+        throw new Error(`Error parsing size attribute "${sizeAttr}", message: ${err.message}, element: ${Util.outerXML(child)}`);
       }
 
       // Generate child element
@@ -95,7 +91,7 @@ export default class FlexHandler extends Handler {
     }
 
     if (this.opt.logging) {
-      log('handleList', outerXML(div));
+      log('handleList', Util.outerXML(div));
     }
     return div;
   }

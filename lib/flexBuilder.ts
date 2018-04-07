@@ -1,4 +1,4 @@
-import { Builder, outerXML } from 'layit';
+import { Builder, Util } from 'layit';
 import FlexHandler from './flexHandler';
 import Option from './option';
 import log from './log';
@@ -17,8 +17,8 @@ export default class FlexBuilder extends Builder {
     const generatedElement = super.build(document) as Element;
 
     if (this.opt.logging) {
-      log('build', outerXML(generatedElement));
+      log('build', Util.outerXML(generatedElement));
     }
-    return outerXML(generatedElement);
+    return Util.outerXML(generatedElement);
   }
 }

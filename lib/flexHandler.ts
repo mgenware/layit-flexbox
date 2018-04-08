@@ -142,7 +142,8 @@ export default class FlexHandler extends Handler {
         }
       }
 
-      const outerSB = new StyleBuilder(src, dest);
+      // Note that src element's style should be copied to inner style builder
+      const outerSB = new StyleBuilder(null, dest);
       // Flex attributes
       outerSB.style.display = defs.flex;
       outerSB.style.flex = defs.cssFlexFullSize;
@@ -150,7 +151,7 @@ export default class FlexHandler extends Handler {
         outerSB.style.justifyContent = outerJustifyContent;
       }
 
-      const innerSB = new StyleBuilder(null, innerWrapper);
+      const innerSB = new StyleBuilder(src, innerWrapper);
       // Flex attributes
       innerSB.style.display = defs.flex;
       innerSB.style.flex = `${innerFlexGrow} 0 ${innerFlexBasis}`;

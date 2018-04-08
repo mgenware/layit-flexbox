@@ -2,8 +2,7 @@ import { Context, Handler, Defs, Util } from 'layit';
 import defs from './defs';
 import Option from './option';
 import log from './log';
-import { SizeType, Size } from './unit/size';
-import SizeParser from './unit/sizeParser';
+import { SizeType, Size, SizeParser } from './unit/size';
 import StyleBuilder from './unit/styleBuilder';
 import { AlignmentParser, HAlignment, VAlignment } from './unit/align';
 
@@ -122,6 +121,7 @@ export default class FlexHandler extends Handler {
     } else {
       const innerWrapper = ctx.document.createElement('div');
 
+      // Adjust attributes for HAlignment
       let innerFlexGrow: string;
       let innerFlexBasis: string;
       let outerJustifyContent: string|null = null;
@@ -131,14 +131,26 @@ export default class FlexHandler extends Handler {
         innerFlexBasis = '0';
       } else {
         innerFlexGrow = '0';
-        innerFlexBasis = 'auto';
+        innerFlexBasis = defs.auto;
 
         if (hAlignAttr === HAlignment.center) {
-          outerJustifyContent = 'center';
+          outerJustifyContent = defs.center;
         } else if (hAlignAttr === HAlignment.left) {
-          outerJustifyContent = 'flex-start';
+          outerJustifyContent = defs.flexStart;
         } else {
-          outerJustifyContent = 'flex-end';
+          outerJustifyContent = defs.flexEnd;
+        }
+      }
+
+      // Adjust attributes for VAlignment
+      let outerAlignItems: string|null = null;
+      if (vAlignAttr !== VAlignment.stretch) {
+        if (vAlignAttr === VAlignment.middle) {
+          outerAlignItems = defs.center;
+        } else if (vAlignAttr === VAlignment.top) {
+          outerAlignItems = defs.flexStart;
+        } else {
+          outerAlignItems = defs.flexEnd;
         }
       }
 
@@ -149,6 +161,9 @@ export default class FlexHandler extends Handler {
       outerSB.style.flex = defs.cssFlexFullSize;
       if (outerJustifyContent) {
         outerSB.style.justifyContent = outerJustifyContent;
+      }
+      if (outerAlignItems) {
+        outerSB.style.alignItems = outerAlignItems;
       }
 
       const innerSB = new StyleBuilder(src, innerWrapper);

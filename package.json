@@ -34,7 +34,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "layit": "^0.2.6",
+    "layit": "^0.2.7",
     "m-fs": "^1.0.3",
     "prettier": "^1.11.1",
     "style-parser": "^1.1.1"

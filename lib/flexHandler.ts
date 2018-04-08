@@ -6,6 +6,8 @@ import { SizeType, Size } from './unit/size';
 import SizeParser from './unit/sizeParser';
 import StyleBuilder from './unit/styleBuilder';
 
+const TEXT_NODE = 3;
+
 export default class FlexHandler extends Handler {
   private opt: Option;
 
@@ -147,7 +149,7 @@ export default class FlexHandler extends Handler {
     }
     for (let i = 0; i < src.childNodes.length; i++) {
       const node = src.childNodes[i];
-      if (node.nodeType === Node.TEXT_NODE) {
+      if (node.nodeType === TEXT_NODE) {
         dest.appendChild(node);
       }
     }

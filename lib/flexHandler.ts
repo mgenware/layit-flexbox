@@ -5,8 +5,9 @@ import log from './log';
 import { SizeType, Size } from './unit/size';
 import SizeParser from './unit/sizeParser';
 import StyleBuilder from './unit/styleBuilder';
+import { AlignmentParser, HAlignment, VAlignment } from './unit/align';
 
-const TEXT_NODE = 3;
+const ELEMENT_NODE = 1;
 
 export default class FlexHandler extends Handler {
   private opt: Option;
@@ -48,7 +49,7 @@ export default class FlexHandler extends Handler {
     // Set child elements
     for (const child of childElements) {
       // Get the size attribute
-      const sizeAttr = this.getElementAttr(child, defs.size);
+      const sizeAttr = this.getElementAttr(child, Defs.vhSize);
 
       let size: Size;
       try {
@@ -90,7 +91,7 @@ export default class FlexHandler extends Handler {
 
     if (!childElements.length) {
       // No child elements, try copying text nodes to dest element
-      this.copyTextChildren(ctx.element, dest);
+      this.passChildren(ctx, dest);
     }
 
     if (this.opt.logging) {
@@ -100,25 +101,70 @@ export default class FlexHandler extends Handler {
   }
 
   private handleBox(ctx: Context): Element {
+    const src = ctx.element;
     const dest = ctx.document.createElement('div');
-    const sb = this.setFlexboxStyles(ctx.element, dest);
-    const marginAttr = this.getElementAttr(ctx.element, defs.margin);
-    sb.style.margin = marginAttr;
-    sb.flush();
 
-    // Handle child
-    const { childElements } = ctx;
-    if (childElements.length > 1) {
-      throw new Error(`<box> can only contain 1 child, got ${childElements.length}`);
-    }
+    const marginAttr = this.getElementAttr(src, Defs.boxMargin);
+    const vAlignAttr = AlignmentParser.vAlignment(this.getElementAttr(src, Defs.boxVAlign));
+    const hAlignAttr = AlignmentParser.hAlignment(this.getElementAttr(src, Defs.boxHAlign));
 
-    if (childElements.length) {
-      const child = childElements[0];
-      const childDiv = ctx.handleDefault(child) as Element;
-      // Append child element to parent
-      dest.appendChild(childDiv);
+    if (hAlignAttr === HAlignment.stretch && vAlignAttr === VAlignment.stretch) {
+      // Stretched in both directions, no need any wrapper elements
+      const sb = this.setFlexboxStyles(src, dest);
+      // Margin attribute
+      sb.style.margin = marginAttr;
+
+      // Flush styles
+      sb.flush();
+
+      // Process children
+      this.passChildren(ctx, dest);
     } else {
-      this.copyTextChildren(ctx.element, dest);
+      const innerWrapper = ctx.document.createElement('div');
+
+      let innerFlexGrow: string;
+      let innerFlexBasis: string;
+      let outerJustifyContent: string|null = null;
+      if (hAlignAttr === HAlignment.stretch) {
+        // outerJustifyContent stays null when hAlignAttr is stretch
+        innerFlexGrow = '1';
+        innerFlexBasis = '0';
+      } else {
+        innerFlexGrow = '0';
+        innerFlexBasis = 'auto';
+
+        if (hAlignAttr === HAlignment.center) {
+          outerJustifyContent = 'center';
+        } else if (hAlignAttr === HAlignment.left) {
+          outerJustifyContent = 'flex-start';
+        } else {
+          outerJustifyContent = 'flex-end';
+        }
+      }
+
+      const outerSB = new StyleBuilder(src, dest);
+      // Flex attributes
+      outerSB.style.display = defs.flex;
+      outerSB.style.flex = defs.cssFlexFullSize;
+      if (outerJustifyContent) {
+        outerSB.style.justifyContent = outerJustifyContent;
+      }
+
+      const innerSB = new StyleBuilder(null, innerWrapper);
+      // Flex attributes
+      innerSB.style.display = defs.flex;
+      innerSB.style.flex = `${innerFlexGrow} 0 ${innerFlexBasis}`;
+
+      // Margin attribute
+      innerSB.style.margin = marginAttr;
+
+      // Flush styles
+      outerSB.flush();
+      innerSB.flush();
+
+      // Add to DOM
+      dest.appendChild(innerWrapper);
+      this.passChildren(ctx, innerWrapper);
     }
 
     if (this.opt.logging) {
@@ -143,13 +189,21 @@ export default class FlexHandler extends Handler {
     return element.getAttribute(name) || '';
   }
 
-  private copyTextChildren(src: Element, dest: Element) {
+  private passChildren(ctx: Context, dest: Element) {
+    const src = ctx.element;
     if (!src.childNodes.length) {
       return;
     }
     for (let i = 0; i < src.childNodes.length; i++) {
       const node = src.childNodes[i];
-      if (node.nodeType === TEXT_NODE) {
+      if (node.nodeType === ELEMENT_NODE) {
+        const childSrc = node as Element;
+        const childDest = ctx.handleDefault(childSrc) as Element;
+        if (!childDest) {
+          throw new Error(`Unexpected null value when passing childNodes, target node: ${Util.outerXML(childSrc)}`);
+        }
+        dest.appendChild(childDest);
+      } else {
         dest.appendChild(node);
       }
     }

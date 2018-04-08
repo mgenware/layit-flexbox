@@ -1,3 +1,5 @@
+import { Defs } from 'layit';
+
 export enum HAlignment {
   left = 'left',
   center = 'center',
@@ -13,11 +15,25 @@ export enum VAlignment {
 }
 
 export class AlignmentParser {
-  static hAlignment(s: string): HAlignment|null {
-    return HAlignment[s as any] as HAlignment;
+  static hAlignment(s: string): HAlignment|undefined {
+    if (!s) {
+      return HAlignment.stretch;
+    }
+    const res = HAlignment[s as any] as HAlignment;
+    if (!res) {
+      throw new Error(`"${s}" is not a valid value of ${Defs.boxHAlign}`);
+    }
+    return res;
   }
 
-  static vAlignment(s: string): VAlignment|null {
-    return VAlignment[s as any] as VAlignment;
+  static vAlignment(s: string): VAlignment {
+    if (!s) {
+      return VAlignment.stretch;
+    }
+    const res = VAlignment[s as any] as VAlignment;
+    if (!res) {
+      throw new Error(`"${s}" is not a valid value of ${Defs.boxVAlign}`);
+    }
+    return res;
   }
 }

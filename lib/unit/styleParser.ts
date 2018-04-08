@@ -49,4 +49,7 @@ export default class StyleParser {
   set justifyContent(value: string) {
     this.map['justify-content'] = value;
   }
+  set alignItems(value: string) {
+    this.map['align-items'] = value;
+  }
 }

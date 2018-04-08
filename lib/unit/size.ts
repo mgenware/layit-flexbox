@@ -29,11 +29,7 @@ export class Size {
 
 export class SizeParser {
   static parse(s: string): Size {
-    if (!s) {
-      throw new Error('Either not defined or empty string');
-    }
-
-    if (s === 'auto') {
+    if (!s || s === 'auto') {
       return Size.auto();
     }
 

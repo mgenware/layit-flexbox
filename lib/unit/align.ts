@@ -31,6 +31,10 @@ export class AlignmentParser {
       return VAlignment.stretch;
     }
     const res = VAlignment[s as any] as VAlignment;
+    // Allow 'center' to be 'middle'
+    if (s === 'center') {
+      return VAlignment.middle;
+    }
     if (!res) {
       throw new Error(`"${s}" is not a valid value of ${Defs.boxVAlign}`);
     }

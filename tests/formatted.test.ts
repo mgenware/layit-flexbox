@@ -6,7 +6,7 @@ test('formatted', async () => {
   <div style="background-color:yellow;display:flex;flex:0 1 auto;">
     Header: auto
   </div>
-  <div style="display:flex;flex:1 1 0;flex-direction:row;">
+  <div style="display:flex;flex:1 1 0;">
     <div style="background-color:red;display:flex;flex:0 1 100px;">
       Left bar: 100px
     </div>

@@ -42,8 +42,10 @@ export default class FlexHandler extends Handler {
 
     // Set the flex and flex-direction CSS styles
     const divSB = this.setFlexboxStyles(ctx.element, dest);
-    divSB.style.flexDirection = vertical ? 'column' : 'row';
-    divSB.flush();
+    if (vertical) {
+      divSB.style.flexDirection = vertical ? 'column' : 'row';
+      divSB.flush();
+    }
 
     // Set child elements
     for (const child of childElements) {

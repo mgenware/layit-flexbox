@@ -1,0 +1,8 @@
+<layit>
+  <h>
+    <box style="background-color:red" margin="1px 2px 3px"></box>
+    <box style="background-color:green" margin="1px 2px 3px 4px"></box>
+    <box style="background-color:yellow" margin="10px 20px"></box>
+    <box style="background-color:green" margin="1px"></box>
+  </h>
+</layit>

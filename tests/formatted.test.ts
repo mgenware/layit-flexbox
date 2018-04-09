@@ -1,7 +1,7 @@
 import { buildTestFile } from './base';
 
-test('formatted', async () => {
-  const result = await buildTestFile('vh.xml', { minify: false });
+test('Formatted', async () => {
+  const result = await buildTestFile('formatted.xml', { minify: false });
   expect(result).toBe(`<div style="display:flex;flex:1 1 0;flex-direction:column;">
   <div style="background-color:yellow;display:flex;flex:0 1 auto;">
     Header: auto

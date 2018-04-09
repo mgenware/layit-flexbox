@@ -1,0 +1,8 @@
+<layit>
+  <box> a b c
+    <v>  d e  f </v>
+    g h
+    <box> x y <h1> number 1</h1>  z   </box>
+    d e f
+  </box>
+</layit>

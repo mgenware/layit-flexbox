@@ -1,5 +1,10 @@
 <layit>
   <v>
+    <h>
+      <div style="background-color:yellow">A</div>
+      <box style="background-color:green" size="100">B</box>
+      <box style="background-color:red">A</box>
+    </h>
     <box size="auto" style="background-color:yellow">Header: auto</box>
     <h size="*">
       <box size="100px" style="background-color:red">Left bar: 100px</box>

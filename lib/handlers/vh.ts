@@ -7,31 +7,32 @@ import { SizeType, Size, SizeParser } from '../unit/size';
 
 export default class VHHandler {
   static handle(ctx: Context, option: Option, vertical: boolean): Element {
+    const src = ctx.element;
     const dest = ctx.document.createElement('div');
     const { childElements } = ctx;
 
     // Set the flex and flex-direction CSS styles
-    const divSB = DomUtil.setFlexboxStyles(ctx.element, dest);
+    const divSB = DomUtil.setFlexboxStyles(src, dest);
     if (vertical) {
       divSB.style.flexDirection = vertical ? 'column' : 'row';
       divSB.flush();
     }
 
     // Set child elements
-    for (const child of childElements) {
+    for (const childSrc of childElements) {
       // Get the size attribute
-      const sizeAttr = DomUtil.getElementAttr(child, Defs.vhSize);
+      const sizeAttr = DomUtil.getElementAttr(childSrc, Defs.vhSize);
 
       let size: Size;
       try {
         size = SizeParser.parse(sizeAttr);
       } catch (err) {
-        throw new Error(`Error parsing size attribute "${sizeAttr}", message: ${err.message}, element: ${Util.outerXML(child)}`);
+        throw new Error(`Error parsing size attribute "${sizeAttr}", message: ${err.message}, element: ${Util.outerXML(childSrc)}`);
       }
 
       // Generate child element
-      const childDiv = ctx.handleDefault(child) as Element;
-      const childBS = new StyleBuilder(null, childDiv);
+      const childDest = ctx.handleDefault(childSrc) as Element;
+      const childBS = new StyleBuilder(null, childDest);
 
       // Apply size value
       switch (size.type) {
@@ -57,12 +58,12 @@ export default class VHHandler {
       // Set style attribute
       childBS.flush();
       // Append child element to parent
-      dest.appendChild(childDiv);
+      dest.appendChild(childDest);
     }
 
     if (!childElements.length) {
       // No child elements, try copying text nodes to dest element
-      DomUtil.handleChildren(ctx, dest);
+      DomUtil.copyChildren(src, dest);
     }
 
     if (option.logging) {

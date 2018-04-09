@@ -1,8 +1,6 @@
 import StyleBuilder from '../unit/styleBuilder';
-import { Context, Util } from 'layit';
+import { Context } from 'layit';
 import defs from '../defs';
-
-const ELEMENT_NODE = 1;
 
 export default class DomUtil {
   static setFlexboxStyles(src: Element|null, dest: Element): StyleBuilder {
@@ -17,23 +15,22 @@ export default class DomUtil {
     return element.getAttribute(name) || '';
   }
 
-  static handleChildren(ctx: Context, dest: Element) {
-    const src = ctx.element;
-    if (!src.childNodes.length) {
-      return;
-    }
+  static copyChildren(src: Element, dest: Element) {
     for (let i = 0; i < src.childNodes.length; i++) {
       const node = src.childNodes[i];
-      if (node.nodeType === ELEMENT_NODE) {
-        const childSrc = node as Element;
-        const childDest = ctx.handleDefault(childSrc) as Element;
-        if (!childDest) {
-          throw new Error(`Unexpected null value when passing childNodes, target node: ${Util.outerXML(childSrc)}`);
-        }
-        dest.appendChild(childDest);
-      } else {
-        dest.appendChild(node);
-      }
+      dest.appendChild(node);
+    }
+  }
+
+  static handleChildren(ctx: Context, dest: Element) {
+    if (!ctx.childElements.length) {
+      this.copyChildren(ctx.element, dest);
+      return;
+    }
+
+    for (const childSrc of ctx.childElements) {
+      const childDest = ctx.handleDefault(childSrc) as Element;
+      dest.appendChild(childDest);
     }
   }
 }

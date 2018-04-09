@@ -1,7 +1,0 @@
-<layit>
-  <V> a b c
-    <H size="*"> x y <V size="*">  h i </V> z   </H>
-    <V size="*"> i </V>
-    d e f
-  </V>
-</layit>

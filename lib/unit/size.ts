@@ -36,7 +36,7 @@ export class SizeParser {
     if (s.startsWith('*')) {
       let proportion: number;
       if (s.length === 1) {
-        // A single "*" is equivalent to 1
+        // A single "*" is equivalent to *1
         proportion = 1;
       } else {
         proportion = parseInt(s.substr(1), 10);

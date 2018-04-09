@@ -1,7 +1,16 @@
 <layit>
   <box style="background-color:yellow" margin="0">
-    <box style="background-color:green" margin="20px">
-      <box style="background-color:black" margin="10px 100px"></box>
+    ABC
+    <box style="background-color:green" margin="20px" h-align="right">
+      <h>
+        ABC
+        <box>A</box>
+        Ignore
+        <box margin="10">B</box>
+        <h2>hhh</h2>
+        <box v-align="top" h-align="left">C</box>
+      </h>
     </box>
+    DEF
   </box>
 </layit>

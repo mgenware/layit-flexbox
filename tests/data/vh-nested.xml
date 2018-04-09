@@ -3,6 +3,12 @@
     <h size="*"> x y <v size="*">  h i </v> z   </h>
     <v size="auto"> i </v>
     d e f
-    <box>abc</box>
+    <box margin="20px">
+      <h>
+        <p>1</p>
+        <p>2</p>
+        <box>3</box>
+      </h>
+    </box>
   </v>
 </layit>

@@ -1,14 +1,19 @@
 <layit>
   <v>
-    <box style="background:green">ABC</box>
-    <box h-align="center" style="background:green">ABC</box>
-    <box h-align="stretch" style="background:green">ABC</box>
-    <box h-align="left" style="background:green">ABC</box>
-    <box h-align="right" style="background:green">ABC</box>
-    <box v-align="center" style="background:green">ABC</box>
-    <box v-align="middle" style="background:green">ABC</box>
-    <box v-align="top" style="background:green">ABC</box>
-    <box v-align="bottom" style="background:green">ABC</box>
-    <box v-align="stretch" style="background:green">ABC</box>
+    <v>
+      <box style="background:green">ABC</box>
+      <box h-align="center" style="background:green">ABC</box>
+      <box h-align="stretch" style="background:green">ABC</box>
+      <box h-align="left" style="background:green">ABC</box>
+      <box h-align="right" style="background:green">ABC</box>
+    </v>
+    <h>
+      <box style="background:green">ABC</box>
+      <box v-align="center" style="background:green">ABC</box>
+      <box v-align="middle" style="background:green">ABC</box>
+      <box v-align="top" style="background:green">ABC</box>
+      <box v-align="bottom" style="background:green">ABC</box>
+      <box v-align="stretch" style="background:green">ABC</box>
+    </h>
   </v>
 </layit>

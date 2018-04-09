@@ -8,8 +8,16 @@ import { AlignmentParser, HAlignment, VAlignment } from '../unit/align';
 
 export default class BoxHandler {
   static handle(ctx: Context, option: Option): Element {
+    if (option.logging) {
+      log('handleBox-start', Util.outerXML(ctx.element));
+    }
+
     const src = ctx.element;
     const dest = ctx.document.createElement('div');
+
+    if (ctx.childElements.length > 1) {
+      throw new Error(`<box> can only contain one child element. got ${ctx.childElements.length} in ${Util.outerXML(src)}`);
+    }
 
     const marginAttr = DomUtil.getElementAttr(src, Defs.boxMargin);
     const vAlignAttr = AlignmentParser.vAlignment(DomUtil.getElementAttr(src, Defs.boxVAlign));
@@ -92,7 +100,7 @@ export default class BoxHandler {
     }
 
     if (option.logging) {
-      log('handleBox', Util.outerXML(dest));
+      log('handleBox-end', Util.outerXML(dest));
     }
     return dest;
   }

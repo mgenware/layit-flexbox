@@ -3,6 +3,7 @@
     <box style="background:green">ABC</box>
     <box margin="30px" h-align="center" v-align="bottom" style="background:green">ABC</box>
     <box margin="30px" h-align="stretch" v-align="stretch" style="background:green">ABC</box>
-    <box margin="30px" h-align="left" v-align="stretch" style="background:green">ABC</box>
+    <box margin="30px" h-align="left" v-align="middle" style="background:green">ABC</box>
+    <box margin="30px" h-align="stretch" v-align="middle" style="background:green">ABC</box>
   </v>
 </layit>

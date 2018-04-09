@@ -29,7 +29,11 @@ export class Size {
 
 export class SizeParser {
   static parse(s: string): Size {
-    if (!s || s === 'auto') {
+    if (!s) {
+      return Size.proportional(1);
+    }
+
+    if (s === 'auto') {
       return Size.auto();
     }
 

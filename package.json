@@ -1,6 +1,6 @@
 {
   "name": "layit-flexbox",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "Transform layit to HTML(flexbox)",
   "main": "dist/lib/main.js",
   "types": "dist/lib/main.d.ts",

@@ -5,6 +5,9 @@ export default class StyleBuilder {
   private element: Element;
 
   constructor(src: Element|null, dest: Element) {
+    if (!dest) {
+      throw new Error('Empty dest parameter');
+    }
     this.element = dest;
 
     const styleAttr = src ? this.getStyleAttribute(src) : '';

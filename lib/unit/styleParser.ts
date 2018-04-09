@@ -46,4 +46,10 @@ export default class StyleParser {
   set margin(value: string) {
     this.map.margin = value;
   }
+  set justifyContent(value: string) {
+    this.map['justify-content'] = value;
+  }
+  set alignItems(value: string) {
+    this.map['align-items'] = value;
+  }
 }

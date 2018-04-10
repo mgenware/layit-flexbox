@@ -22,9 +22,18 @@ export default class BoxHandler {
     const marginAttr = DomUtil.getElementAttr(src, Defs.boxMargin);
     const vAlignAttr = AlignmentParser.vAlignment(DomUtil.getElementAttr(src, Defs.boxVAlign));
     const hAlignAttr = AlignmentParser.hAlignment(DomUtil.getElementAttr(src, Defs.boxHAlign));
+    const widthAttr = DomUtil.getElementAttr(src, Defs.boxWidth);
+    const heightAttr = DomUtil.getElementAttr(src, Defs.boxHeight);
 
-    if (hAlignAttr === HAlignment.stretch && vAlignAttr === VAlignment.stretch) {
+    if (hAlignAttr === HAlignment.stretch
+      && vAlignAttr === VAlignment.stretch
+      && !widthAttr
+      && !heightAttr) {
       // Stretched in both directions, no need any wrapper elements
+      // width and height should not be set
+      this.throwIfWidthHasValue(widthAttr, src);
+      this.throwIfHeightHasValue(heightAttr, src);
+
       const sb = DomUtil.setFlexboxStyles(src, dest);
       // Margin attribute
       sb.style.margin = marginAttr;
@@ -42,6 +51,7 @@ export default class BoxHandler {
       let innerFlexBasis: string;
       let outerJustifyContent: string|null = null;
       if (hAlignAttr === HAlignment.stretch) {
+        this.throwIfWidthHasValue(widthAttr, src);
         // outerJustifyContent stays null when hAlignAttr is stretch
         innerFlexGrow = '1';
         innerFlexBasis = '0';
@@ -68,6 +78,8 @@ export default class BoxHandler {
         } else {
           outerAlignItems = defs.flexEnd;
         }
+      } else {
+        this.throwIfHeightHasValue(heightAttr, src);
       }
 
       // Note that src element's style should be copied to inner style builder
@@ -89,6 +101,12 @@ export default class BoxHandler {
 
       // Margin attribute
       innerSB.style.margin = marginAttr;
+      if (widthAttr) {
+        innerSB.style.width = widthAttr;
+      }
+      if (heightAttr) {
+        innerSB.style.height = heightAttr;
+      }
 
       // Flush styles
       outerSB.flush();
@@ -103,5 +121,16 @@ export default class BoxHandler {
       log('handleBox-end', Util.outerXML(dest));
     }
     return dest;
+  }
+
+  private static throwIfWidthHasValue(width: string, element: Element) {
+    if (width) {
+      throw Error(`width cannot be set to "${width}" when h-align is "stretch", element: ${Util.outerXML(element)}`);
+    }
+  }
+  private static throwIfHeightHasValue(height: string, element: Element) {
+    if (height) {
+      throw Error(`height cannot be set to "${height}" when v-align is "stretch", element: ${Util.outerXML(element)}`);
+    }
   }
 }

@@ -1,0 +1,10 @@
+<layit>
+  <v>
+    <box style="background-color:red" h-align="center" width="10px">A</box>
+    <box style="background-color:green" v-align="bottom" height="10px">A</box>
+    <box style="background-color:yellow" h-align="left" v-align="bottom" width="10px" height="10px">A</box>
+    <box style="background-color:green" h-align="left" v-align="top" width="10px" height="10px" margin="20px">A</box>
+    <box style="background-color:yellow" width="10px" height="10px" v-align="center" h-align="center">A</box>
+    <box style="background-color:yellow" v-align="bottom" h-align="right" width="10px" height="10px">A</box>
+  </v>
+</layit>

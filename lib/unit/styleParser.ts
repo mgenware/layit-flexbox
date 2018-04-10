@@ -52,4 +52,10 @@ export default class StyleParser {
   set alignItems(value: string) {
     this.map['align-items'] = value;
   }
+  set width(value: string) {
+    this.map.width = value;
+  }
+  set height(value: string) {
+    this.map.height = value;
+  }
 }

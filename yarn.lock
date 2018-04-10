@@ -1997,9 +1997,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-layit@^0.2.7:
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/layit/-/layit-0.2.7.tgz#388f59636a8ed49dc4ed58a00fab1b2ebe00f57c"
+layit@^0.2.8:
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/layit/-/layit-0.2.8.tgz#60cff68ca1302c0c758a89f1daf37a8b41c9f818"
   dependencies:
     "@types/jsdom" "^11.0.4"
     jsdom "^11.7.0"
